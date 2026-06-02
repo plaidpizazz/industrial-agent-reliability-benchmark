@@ -43,7 +43,7 @@ def main() -> None:
     benchmark_summary = {
         "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "benchmark": {
-            "name": "AgentEval Industrial Reliability Benchmark",
+            "name": "Industrial Agent Reliability Benchmark",
             "version": "aerospace_synthetic_v0",
             "scenario_count": len(scenarios),
             "agent_count": len(runners),

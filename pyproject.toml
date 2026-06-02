@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "agenteval-harness"
+name = "industrial-agent-reliability-benchmark"
 version = "0.1.0"
-description = "Agentic AI reliability benchmark for regulated industrial workflows."
+description = "Industrial reliability benchmark for multi-step agentic AI systems."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

@@ -16,7 +16,7 @@ import { ScenarioCoverage } from "@/components/scenario-coverage";
 import { ScoreBar } from "@/components/score-bar";
 import { benchmarkSummary, categorySummaries, failureExamples, metricRows } from "@/lib/results";
 
-const githubUrl = "https://github.com/plaidpizazz/agenteval-harness";
+const githubUrl = "https://github.com/plaidpizazz/industrial-agent-reliability-benchmark";
 
 export default function Home() {
   const topAgent = benchmarkSummary.leaderboard[0];
@@ -30,7 +30,7 @@ export default function Home() {
               Industrial Agent Reliability Benchmark
             </p>
             <h1 className="mt-2 text-3xl font-semibold leading-tight text-[#15171c] md:text-4xl">
-              AgentEval Harness
+              Industrial Agent Reliability Benchmark
             </h1>
             <p className="mt-3 max-w-3xl text-base leading-7 text-[#516070]">
               A reproducible benchmark for multi-step agent behavior across synthetic aerospace supply chain,

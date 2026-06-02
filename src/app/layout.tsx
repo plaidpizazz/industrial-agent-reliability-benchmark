@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgentEval Harness",
+  title: "Industrial Agent Reliability Benchmark",
   description:
     "Agentic AI reliability benchmark for regulated industrial workflows.",
 };

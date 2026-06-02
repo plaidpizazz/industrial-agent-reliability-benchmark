@@ -1,13 +1,13 @@
-# AgentEval Harness
+# Industrial Agent Reliability Benchmark
 
-AgentEval Harness is an open-source reliability benchmark for multi-step agentic AI systems in regulated industrial workflows. It measures behavior that single-turn LLM evals miss: tool-call accuracy, task completion, loop termination, grounding, hallucination risk, and governance controls.
+Industrial Agent Reliability Benchmark is an open-source evaluation harness for multi-step agentic AI systems in regulated industrial workflows. It measures behavior that single-turn LLM evals miss: tool-call accuracy, task completion, loop termination, grounding, hallucination risk, and governance controls.
 
 The initial benchmark uses 18 synthetic aerospace scenarios across supply chain, regulatory lookup, and bid/no-bid recommendation workflows. All data is synthetic and safe for public review.
 
 ## Hiring Team Review
 
-- Public repo: [github.com/plaidpizazz/agenteval-harness](https://github.com/plaidpizazz/agenteval-harness)
-- Public dashboard: [agenteval-industrial-harness.vercel.app](https://agenteval-industrial-harness.vercel.app)
+- Public repo: [github.com/plaidpizazz/industrial-agent-reliability-benchmark](https://github.com/plaidpizazz/industrial-agent-reliability-benchmark)
+- Public dashboard: [industrial-agent-reliability-benchmark.vercel.app](https://industrial-agent-reliability-benchmark.vercel.app)
 - Benchmark artifacts: [`public/results`](public/results)
 - Scenario dataset: [`scenarios/aerospace_synthetic_v0.jsonl`](scenarios/aerospace_synthetic_v0.jsonl)
 
@@ -74,7 +74,7 @@ The `ClaudeAgentRunner` adapter implements Anthropic tool-use loops against the 
 
 The repo is structured for LangSmith tracing/evaluation and Hugging Face Datasets packaging:
 
-- `LANGSMITH_PROJECT=agenteval-harness` can be used for traced runs when credentials are present.
+- `LANGSMITH_PROJECT=industrial-agent-reliability-benchmark` can be used for traced runs when credentials are present.
 - Scenario records are JSONL and can be converted into a Hugging Face `Dataset` from `agenteval.datasets`.
 - CI avoids secret-backed external services by design.
 

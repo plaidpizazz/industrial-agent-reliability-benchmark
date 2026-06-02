@@ -1,4 +1,4 @@
-# AgentEval Harness Notes
+# Industrial Agent Reliability Benchmark Notes
 
 This repo combines a Next.js App Router dashboard with a Python agent-evaluation harness.
 
