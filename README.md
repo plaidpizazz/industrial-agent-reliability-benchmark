@@ -7,7 +7,7 @@ The initial benchmark uses 18 synthetic aerospace scenarios across supply chain,
 ## Hiring Team Review
 
 - Public repo: [github.com/plaidpizazz/agenteval-harness](https://github.com/plaidpizazz/agenteval-harness)
-- Public dashboard: deploy with Vercel from this GitHub repo
+- Public dashboard: [agenteval-industrial-harness.vercel.app](https://agenteval-industrial-harness.vercel.app)
 - Benchmark artifacts: [`public/results`](public/results)
 - Scenario dataset: [`scenarios/aerospace_synthetic_v0.jsonl`](scenarios/aerospace_synthetic_v0.jsonl)
 
