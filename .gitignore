@@ -12,6 +12,12 @@
 
 # testing
 /coverage
+/.playwright-cli
+/output
+.pytest_cache
+__pycache__/
+*.py[cod]
+*.egg-info/
 
 # next.js
 /.next/
@@ -32,10 +38,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts

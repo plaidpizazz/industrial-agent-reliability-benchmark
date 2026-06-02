@@ -1,5 +1,11 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# AgentEval Harness Notes
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This repo combines a Next.js App Router dashboard with a Python agent-evaluation harness.
+
+- Keep public dashboard data in `public/results`.
+- Keep synthetic benchmark scenarios in `scenarios`.
+- Keep deterministic evals runnable without secrets.
+- Do not place real customer, export-controlled, or proprietary data in the scenario dataset.
+<!-- BEGIN:nextjs-agent-rules -->
+Next.js APIs can change between major versions. Check installed docs or package types before changing framework conventions.
 <!-- END:nextjs-agent-rules -->

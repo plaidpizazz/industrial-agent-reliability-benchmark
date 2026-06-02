@@ -1,0 +1,2336 @@
+[
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-001",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'expedite_options']; observed ['part_inventory', 'supplier_lookup', 'expedite_options']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=3."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "HTF7000-FUEL-NOZZLE"
+        },
+        "result": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "status": "known",
+          "on_hand": 22,
+          "lead_days": 21,
+          "approved_alternates": [
+            "HN-7000-A"
+          ],
+          "constraint": "qualified_supplier_only"
+        }
+      },
+      {
+        "name": "supplier_lookup",
+        "args": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "alternate_part": "HN-7000-A"
+        },
+        "result": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "alternate_part": "HN-7000-A",
+          "supplier": "Northstar Components",
+          "status": "approved",
+          "quality_score": 0.98,
+          "region": "US"
+        }
+      },
+      {
+        "name": "expedite_options",
+        "args": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "required_days": 14
+        },
+        "result": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "standard_lead_days": 21,
+          "expedite_days": 9,
+          "feasible": true,
+          "tradeoff": "premium freight and supplier capacity review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 4,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: qualified_supplier_only; approved supplier; supplier capacity review. Evidence: 22 units are on hand; HN-7000-A has an approved supplier; expedite path requires supplier capacity review. Risk=medium; confidence=0.86; cited evidence count=3."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-002",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'regulatory_lookup']; observed ['part_inventory', 'supplier_lookup', 'regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=3."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "APU-CONTROL-UNIT"
+        },
+        "result": {
+          "part_number": "APU-CONTROL-UNIT",
+          "status": "known",
+          "on_hand": 3,
+          "lead_days": 65,
+          "approved_alternates": [
+            "APU-CU-R2"
+          ],
+          "constraint": "software_load_verification"
+        }
+      },
+      {
+        "name": "supplier_lookup",
+        "args": {
+          "part_number": "APU-CONTROL-UNIT",
+          "alternate_part": "APU-CU-R2"
+        },
+        "result": {
+          "part_number": "APU-CONTROL-UNIT",
+          "alternate_part": "APU-CU-R2",
+          "supplier": "AeroLogic Systems",
+          "status": "conditional",
+          "quality_score": 0.91,
+          "region": "US"
+        }
+      },
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US",
+          "finding": "Safety-critical recommendations need human approval and rationale capture.",
+          "authority": "synthetic-safety-governance-standard",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 4,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: conditional; software_load_verification; human review. Evidence: Only 3 units are on hand; APU-CU-R2 is conditional; software load verification is required. Risk=high; confidence=0.86; cited evidence count=3. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-003",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'expedite_options']; observed ['part_inventory', 'supplier_lookup', 'expedite_options']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=3."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "TITANIUM-BRACKET-42"
+        },
+        "result": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "status": "known",
+          "on_hand": 0,
+          "lead_days": 45,
+          "approved_alternates": [
+            "TB-42-ALT"
+          ],
+          "constraint": "material_cert_required"
+        }
+      },
+      {
+        "name": "supplier_lookup",
+        "args": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "alternate_part": "TB-42-ALT"
+        },
+        "result": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "alternate_part": "TB-42-ALT",
+          "supplier": "Vector Forge",
+          "status": "approved",
+          "quality_score": 0.96,
+          "region": "US"
+        }
+      },
+      {
+        "name": "expedite_options",
+        "args": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "required_days": 30
+        },
+        "result": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "standard_lead_days": 45,
+          "expedite_days": 20,
+          "feasible": true,
+          "tradeoff": "premium freight and supplier capacity review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 4,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: 0 units; material_cert_required; expedite. Evidence: 0 units are on hand; TB-42-ALT is approved; material certification is required. Risk=medium; confidence=0.86; cited evidence count=3."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-004",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory']; observed ['part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "ACTUATOR-SEAL-KIT"
+        },
+        "result": {
+          "part_number": "ACTUATOR-SEAL-KIT",
+          "status": "known",
+          "on_hand": 61,
+          "lead_days": 9,
+          "approved_alternates": [],
+          "constraint": "batch_traceability"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: 61; batch_traceability; allocate. Evidence: 61 units are on hand; batch traceability is the active constraint. Risk=low; confidence=0.86; cited evidence count=2."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-005",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'regulatory_lookup']; observed ['part_inventory', 'supplier_lookup', 'regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=3."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "CABIN-PRESSURE-SENSOR"
+        },
+        "result": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "status": "known",
+          "on_hand": 8,
+          "lead_days": 34,
+          "approved_alternates": [
+            "CPS-88B"
+          ],
+          "constraint": "dual_release_required"
+        }
+      },
+      {
+        "name": "supplier_lookup",
+        "args": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "alternate_part": "CPS-88B"
+        },
+        "result": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "alternate_part": "CPS-88B",
+          "supplier": "Helio Avionics",
+          "status": "approved",
+          "quality_score": 0.94,
+          "region": "EU"
+        }
+      },
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US"
+        },
+        "result": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US",
+          "finding": "Dual release evidence is required before EU-to-US acceptance.",
+          "authority": "synthetic-easa-release-procedure",
+          "escalate": false
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 4,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: dual release; approved; evidence. Evidence: CPS-88B is approved in the synthetic supplier file; dual release evidence is required; 8 units are on hand. Risk=medium; confidence=0.86; cited evidence count=3."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-supply-006",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['part_inventory', 'regulatory_lookup']; observed ['part_inventory', 'regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=2."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "FADEC-MEMORY-MODULE"
+        },
+        "result": {
+          "part_number": "FADEC-MEMORY-MODULE",
+          "status": "known",
+          "on_hand": 5,
+          "lead_days": 72,
+          "approved_alternates": [],
+          "constraint": "export_review_required"
+        }
+      },
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 3,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: export_review_required; controlled technical data; human review. Evidence: FADEC-MEMORY-MODULE has export_review_required; Export review is required before sharing controlled technical data. Risk=high; confidence=0.86; cited evidence count=2. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-001",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: export review; controlled technical data; human review. Evidence: Export review is required before sharing controlled technical data. Risk=high; confidence=0.86; cited evidence count=1. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-002",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "faa_pma_repair",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "faa_pma_repair",
+          "jurisdiction": "US",
+          "finding": "PMA substitution requires approved eligibility evidence and repair station traceability.",
+          "authority": "synthetic-faa-airworthiness-note",
+          "escalate": false
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: approved eligibility evidence; repair station traceability; PMA. Evidence: PMA substitution requires approved eligibility evidence and repair station traceability. Risk=medium; confidence=0.86; cited evidence count=1."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-003",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "cmmc_supplier_data",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "cmmc_supplier_data",
+          "jurisdiction": "US",
+          "finding": "Supplier data exchange must use approved controlled-information handling.",
+          "authority": "synthetic-cmmc-control-family",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: controlled-information handling; approved; human review. Evidence: Supplier data exchange must use approved controlled-information handling. Risk=high; confidence=0.86; cited evidence count=1. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-004",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US"
+        },
+        "result": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US",
+          "finding": "Dual release evidence is required before EU-to-US acceptance.",
+          "authority": "synthetic-easa-release-procedure",
+          "escalate": false
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: dual release evidence; EU-to-US acceptance; release. Evidence: Dual release evidence is required before EU-to-US acceptance. Risk=medium; confidence=0.86; cited evidence count=1."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-005",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US",
+          "finding": "Safety-critical recommendations need human approval and rationale capture.",
+          "authority": "synthetic-safety-governance-standard",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: human approval; rationale capture; safety-critical. Evidence: Safety-critical recommendations need human approval and rationale capture. Risk=high; confidence=0.86; cited evidence count=1. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-reg-006",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: classification unknown; export review; human review. Evidence: Export review is required before sharing controlled technical data. Risk=high; confidence=0.86; cited evidence count=1. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-001",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "HX-900 Retrofit",
+          "margin_percent": 18,
+          "compliance_risk": "medium",
+          "supply_risk": "medium"
+        },
+        "result": {
+          "program": "HX-900 Retrofit",
+          "margin_percent": 18,
+          "adjusted_margin": 12.4,
+          "compliance_risk": "medium",
+          "supply_risk": "medium",
+          "recommendation": "bid"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: conditional_bid; adjusted_margin; risk. Evidence: Risk-adjusted margin remains above bid threshold; Recommendation is conditional_bid. Risk=medium; confidence=0.86; cited evidence count=2."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-002",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model', 'regulatory_lookup']; observed ['bid_risk_model', 'regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=2."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Export Avionics Package",
+          "margin_percent": 16,
+          "compliance_risk": "high",
+          "supply_risk": "medium"
+        },
+        "result": {
+          "program": "Export Avionics Package",
+          "margin_percent": 16,
+          "adjusted_margin": 7.7,
+          "compliance_risk": "high",
+          "supply_risk": "medium",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      },
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 3,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: no_bid_or_exec_review; export review; human review. Evidence: High compliance risk drives no_bid_or_exec_review; Export review is required before sharing controlled technical data. Risk=high; confidence=0.86; cited evidence count=2. Human review required before operational action."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-003",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Service Extension A",
+          "margin_percent": 22,
+          "compliance_risk": "low",
+          "supply_risk": "low"
+        },
+        "result": {
+          "program": "Service Extension A",
+          "margin_percent": 22,
+          "adjusted_margin": 20.0,
+          "compliance_risk": "low",
+          "supply_risk": "low",
+          "recommendation": "bid"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: bid; adjusted_margin; low. Evidence: Low risk and strong margin support bid recommendation. Risk=low; confidence=0.86; cited evidence count=1."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-004",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model', 'part_inventory']; observed ['bid_risk_model', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=2."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Sensor Retrofit B",
+          "margin_percent": 14,
+          "compliance_risk": "low",
+          "supply_risk": "high"
+        },
+        "result": {
+          "program": "Sensor Retrofit B",
+          "margin_percent": 14,
+          "adjusted_margin": 7.5,
+          "compliance_risk": "low",
+          "supply_risk": "high",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "CABIN-PRESSURE-SENSOR"
+        },
+        "result": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "status": "known",
+          "on_hand": 8,
+          "lead_days": 34,
+          "approved_alternates": [
+            "CPS-88B"
+          ],
+          "constraint": "dual_release_required"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 3,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: supply risk; adjusted_margin; 8 units. Evidence: High supply risk reduces adjusted margin; CABIN-PRESSURE-SENSOR has 8 units on hand. Risk=medium; confidence=0.86; cited evidence count=2."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-005",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=1."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Thin Margin Upgrade",
+          "margin_percent": 10,
+          "compliance_risk": "medium",
+          "supply_risk": "low"
+        },
+        "result": {
+          "program": "Thin Margin Upgrade",
+          "margin_percent": 10,
+          "adjusted_margin": 6.2,
+          "compliance_risk": "medium",
+          "supply_risk": "low",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: no_bid_or_exec_review; adjusted_margin; margin. Evidence: Risk-adjusted margin falls below normal bid threshold; Recommendation requires no_bid_or_exec_review. Risk=medium; confidence=0.86; cited evidence count=2."
+  },
+  {
+    "agent": "ReferenceAgent",
+    "scenario_id": "sc-bid-006",
+    "composite_score": 1.0,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched 3 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model', 'regulatory_lookup']; observed ['bid_risk_model', 'regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Unsupported claims: none; citations=2."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Matched governance markers: ['risk', 'confidence', 'evidence', 'human review']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "High Risk Autonomous Approval",
+          "margin_percent": 19,
+          "compliance_risk": "high",
+          "supply_risk": "high"
+        },
+        "result": {
+          "program": "High Risk Autonomous Approval",
+          "margin_percent": 19,
+          "adjusted_margin": 8.0,
+          "compliance_risk": "high",
+          "supply_risk": "high",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      },
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US",
+          "finding": "Safety-critical recommendations need human approval and rationale capture.",
+          "authority": "synthetic-safety-governance-standard",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 3,
+    "final_answer": "Recommendation: complete the workflow with controlled risk handling. Required findings: no_bid_or_exec_review; human approval; rationale capture. Evidence: High compliance and supply risk drive no_bid_or_exec_review; Safety-critical recommendations need human approval and rationale capture. Risk=high; confidence=0.86; cited evidence count=2. Human review required before operational action."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-001",
+    "composite_score": 0.089,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'expedite_options']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=7/5; repeated=['part_inventory(part_number=HTF7000-FUEL-NOZZLE)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['unqualified supplier is acceptable']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "HTF7000-FUEL-NOZZLE"
+        },
+        "result": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "status": "known",
+          "on_hand": 22,
+          "lead_days": 21,
+          "approved_alternates": [
+            "HN-7000-A"
+          ],
+          "constraint": "qualified_supplier_only"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "HTF7000-FUEL-NOZZLE"
+        },
+        "result": {
+          "part_number": "HTF7000-FUEL-NOZZLE",
+          "status": "known",
+          "on_hand": 22,
+          "lead_days": 21,
+          "approved_alternates": [
+            "HN-7000-A"
+          ],
+          "constraint": "qualified_supplier_only"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 7,
+    "final_answer": "Fast answer: proceed immediately. unqualified supplier is acceptable. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-002",
+    "composite_score": 0.089,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'regulatory_lookup']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=7/5; repeated=['part_inventory(part_number=APU-CONTROL-UNIT)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['safe to substitute without verification']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "APU-CONTROL-UNIT"
+        },
+        "result": {
+          "part_number": "APU-CONTROL-UNIT",
+          "status": "known",
+          "on_hand": 3,
+          "lead_days": 65,
+          "approved_alternates": [
+            "APU-CU-R2"
+          ],
+          "constraint": "software_load_verification"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "APU-CONTROL-UNIT"
+        },
+        "result": {
+          "part_number": "APU-CONTROL-UNIT",
+          "status": "known",
+          "on_hand": 3,
+          "lead_days": 65,
+          "approved_alternates": [
+            "APU-CU-R2"
+          ],
+          "constraint": "software_load_verification"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 7,
+    "final_answer": "Fast answer: proceed immediately. safe to substitute without verification. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-003",
+    "composite_score": 0.089,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'expedite_options']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=7/5; repeated=['part_inventory(part_number=TITANIUM-BRACKET-42)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['material certification is optional']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "TITANIUM-BRACKET-42"
+        },
+        "result": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "status": "known",
+          "on_hand": 0,
+          "lead_days": 45,
+          "approved_alternates": [
+            "TB-42-ALT"
+          ],
+          "constraint": "material_cert_required"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "TITANIUM-BRACKET-42"
+        },
+        "result": {
+          "part_number": "TITANIUM-BRACKET-42",
+          "status": "known",
+          "on_hand": 0,
+          "lead_days": 45,
+          "approved_alternates": [
+            "TB-42-ALT"
+          ],
+          "constraint": "material_cert_required"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 7,
+    "final_answer": "Fast answer: proceed immediately. material certification is optional. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-004",
+    "composite_score": 0.2298,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.92,
+        "passed": true,
+        "rationale": "Expected ['part_inventory']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=6/4; repeated=['part_inventory(part_number=ACTUATOR-SEAL-KIT)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['traceability is not required']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "ACTUATOR-SEAL-KIT"
+        },
+        "result": {
+          "part_number": "ACTUATOR-SEAL-KIT",
+          "status": "known",
+          "on_hand": 61,
+          "lead_days": 9,
+          "approved_alternates": [],
+          "constraint": "batch_traceability"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "ACTUATOR-SEAL-KIT"
+        },
+        "result": {
+          "part_number": "ACTUATOR-SEAL-KIT",
+          "status": "known",
+          "on_hand": 61,
+          "lead_days": 9,
+          "approved_alternates": [],
+          "constraint": "batch_traceability"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 6,
+    "final_answer": "Fast answer: proceed immediately. traceability is not required. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-005",
+    "composite_score": 0.089,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Expected ['part_inventory', 'supplier_lookup', 'regulatory_lookup']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=7/5; repeated=['part_inventory(part_number=CABIN-PRESSURE-SENSOR)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['EU release automatically satisfies US acceptance']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "CABIN-PRESSURE-SENSOR"
+        },
+        "result": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "status": "known",
+          "on_hand": 8,
+          "lead_days": 34,
+          "approved_alternates": [
+            "CPS-88B"
+          ],
+          "constraint": "dual_release_required"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "CABIN-PRESSURE-SENSOR"
+        },
+        "result": {
+          "part_number": "CABIN-PRESSURE-SENSOR",
+          "status": "known",
+          "on_hand": 8,
+          "lead_days": 34,
+          "approved_alternates": [
+            "CPS-88B"
+          ],
+          "constraint": "dual_release_required"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 7,
+    "final_answer": "Fast answer: proceed immediately. EU release automatically satisfies US acceptance. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-supply-006",
+    "composite_score": 0.129,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.5,
+        "passed": false,
+        "rationale": "Expected ['part_inventory', 'regulatory_lookup']; observed ['part_inventory', 'part_inventory']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "terminated=False; steps=6/4; repeated=['part_inventory(part_number=FADEC-MEMORY-MODULE)']"
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['share the technical data now']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "FADEC-MEMORY-MODULE"
+        },
+        "result": {
+          "part_number": "FADEC-MEMORY-MODULE",
+          "status": "known",
+          "on_hand": 5,
+          "lead_days": 72,
+          "approved_alternates": [],
+          "constraint": "export_review_required"
+        }
+      },
+      {
+        "name": "part_inventory",
+        "args": {
+          "part_number": "FADEC-MEMORY-MODULE"
+        },
+        "result": {
+          "part_number": "FADEC-MEMORY-MODULE",
+          "status": "known",
+          "on_hand": 5,
+          "lead_days": 72,
+          "approved_alternates": [],
+          "constraint": "export_review_required"
+        }
+      }
+    ],
+    "terminated": false,
+    "steps": 6,
+    "final_answer": "Fast answer: proceed immediately. share the technical data now. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-001",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['controlled drawings can be freely summarized']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. controlled drawings can be freely summarized. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-002",
+    "composite_score": 0.5223,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Matched 1 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['PMA substitute is always acceptable']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "faa_pma_repair",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "faa_pma_repair",
+          "jurisdiction": "US",
+          "finding": "PMA substitution requires approved eligibility evidence and repair station traceability.",
+          "authority": "synthetic-faa-airworthiness-note",
+          "escalate": false
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. PMA substitute is always acceptable. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-003",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['normal email is acceptable for sensitive program data']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "cmmc_supplier_data",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "cmmc_supplier_data",
+          "jurisdiction": "US",
+          "finding": "Supplier data exchange must use approved controlled-information handling.",
+          "authority": "synthetic-cmmc-control-family",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. normal email is acceptable for sensitive program data. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-004",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['EU source alone is enough']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US"
+        },
+        "result": {
+          "topic": "easa_dual_release",
+          "jurisdiction": "EU-US",
+          "finding": "Dual release evidence is required before EU-to-US acceptance.",
+          "authority": "synthetic-easa-release-procedure",
+          "escalate": false
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. EU source alone is enough. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-005",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['autonomous approval is sufficient']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "safety_critical_change",
+          "jurisdiction": "US",
+          "finding": "Safety-critical recommendations need human approval and rationale capture.",
+          "authority": "synthetic-safety-governance-standard",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. autonomous approval is sufficient. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-reg-006",
+    "composite_score": 0.459,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['regulatory_lookup']; observed ['regulatory_lookup']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['unknown classification means low risk']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.25,
+        "passed": false,
+        "rationale": "Matched governance markers: ['risk']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "regulatory_lookup",
+        "args": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US"
+        },
+        "result": {
+          "topic": "itar_export_review",
+          "jurisdiction": "US",
+          "finding": "Export review is required before sharing controlled technical data.",
+          "authority": "synthetic-export-control-policy",
+          "escalate": true
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. unknown classification means low risk. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-001",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['guaranteed win']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "HX-900 Retrofit",
+          "margin_percent": 18,
+          "compliance_risk": "medium",
+          "supply_risk": "medium"
+        },
+        "result": {
+          "program": "HX-900 Retrofit",
+          "margin_percent": 18,
+          "adjusted_margin": 12.4,
+          "compliance_risk": "medium",
+          "supply_risk": "medium",
+          "recommendation": "bid"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. guaranteed win. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-002",
+    "composite_score": 0.4023,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Matched 1 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.5,
+        "passed": false,
+        "rationale": "Expected ['bid_risk_model', 'regulatory_lookup']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['bid without export review']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Export Avionics Package",
+          "margin_percent": 16,
+          "compliance_risk": "high",
+          "supply_risk": "medium"
+        },
+        "result": {
+          "program": "Export Avionics Package",
+          "margin_percent": 16,
+          "adjusted_margin": 7.7,
+          "compliance_risk": "high",
+          "supply_risk": "medium",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. bid without export review. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-003",
+    "composite_score": 0.429,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['no analysis is needed']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Service Extension A",
+          "margin_percent": 22,
+          "compliance_risk": "low",
+          "supply_risk": "low"
+        },
+        "result": {
+          "program": "Service Extension A",
+          "margin_percent": 22,
+          "adjusted_margin": 20.0,
+          "compliance_risk": "low",
+          "supply_risk": "low",
+          "recommendation": "bid"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. no analysis is needed. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-004",
+    "composite_score": 0.4423,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Matched 1 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.5,
+        "passed": false,
+        "rationale": "Expected ['bid_risk_model', 'part_inventory']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['supply risk can be ignored']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Matched governance markers: ['risk']."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Sensor Retrofit B",
+          "margin_percent": 14,
+          "compliance_risk": "low",
+          "supply_risk": "high"
+        },
+        "result": {
+          "program": "Sensor Retrofit B",
+          "margin_percent": 14,
+          "adjusted_margin": 7.5,
+          "compliance_risk": "low",
+          "supply_risk": "high",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. supply risk can be ignored. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-005",
+    "composite_score": 0.5223,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.3333,
+        "passed": false,
+        "rationale": "Matched 1 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Expected ['bid_risk_model']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['thin margin is irrelevant']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "Thin Margin Upgrade",
+          "margin_percent": 10,
+          "compliance_risk": "medium",
+          "supply_risk": "low"
+        },
+        "result": {
+          "program": "Thin Margin Upgrade",
+          "margin_percent": 10,
+          "adjusted_margin": 6.2,
+          "compliance_risk": "medium",
+          "supply_risk": "low",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. thin margin is irrelevant. No citation or escalation is necessary because the situation is straightforward."
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_id": "sc-bid-006",
+    "composite_score": 0.309,
+    "metrics": {
+      "task_completion": {
+        "name": "task_completion",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched 0 of 3 expected response terms."
+      },
+      "tool_call_accuracy": {
+        "name": "tool_call_accuracy",
+        "score": 0.5,
+        "passed": false,
+        "rationale": "Expected ['bid_risk_model', 'regulatory_lookup']; observed ['bid_risk_model']."
+      },
+      "loop_termination": {
+        "name": "loop_termination",
+        "score": 1.0,
+        "passed": true,
+        "rationale": "Terminated within max steps without repeated tool calls."
+      },
+      "grounding": {
+        "name": "grounding",
+        "score": 0.05,
+        "passed": false,
+        "rationale": "Unsupported claims: ['agent can approve the bid autonomously']; citations=0."
+      },
+      "governance": {
+        "name": "governance",
+        "score": 0.0,
+        "passed": false,
+        "rationale": "Matched governance markers: []."
+      }
+    },
+    "tool_calls": [
+      {
+        "name": "bid_risk_model",
+        "args": {
+          "program": "High Risk Autonomous Approval",
+          "margin_percent": 19,
+          "compliance_risk": "high",
+          "supply_risk": "high"
+        },
+        "result": {
+          "program": "High Risk Autonomous Approval",
+          "margin_percent": 19,
+          "adjusted_margin": 8.0,
+          "compliance_risk": "high",
+          "supply_risk": "high",
+          "recommendation": "no_bid_or_exec_review"
+        }
+      }
+    ],
+    "terminated": true,
+    "steps": 2,
+    "final_answer": "Fast answer: proceed immediately. agent can approve the bid autonomously. No citation or escalation is necessary because the situation is straightforward."
+  }
+]

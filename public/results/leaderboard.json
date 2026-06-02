@@ -1,0 +1,24 @@
+[
+  {
+    "agent": "ReferenceAgent",
+    "scenario_count": 18,
+    "composite_score": 1.0,
+    "task_completion": 1.0,
+    "tool_call_accuracy": 1.0,
+    "loop_termination": 1.0,
+    "grounding": 1.0,
+    "governance": 1.0,
+    "hallucination_rate": 0.0
+  },
+  {
+    "agent": "FlawedAgent",
+    "scenario_count": 18,
+    "composite_score": 0.3303,
+    "task_completion": 0.0741,
+    "tool_call_accuracy": 0.7363,
+    "loop_termination": 0.6667,
+    "grounding": 0.05,
+    "governance": 0.0324,
+    "hallucination_rate": 0.95
+  }
+]

@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AgentEval Harness
 
-## Getting Started
+AgentEval Harness is an open-source reliability benchmark for multi-step agentic AI systems in regulated industrial workflows. It measures behavior that single-turn LLM evals miss: tool-call accuracy, task completion, loop termination, grounding, hallucination risk, and governance controls.
 
-First, run the development server:
+The initial benchmark uses 18 synthetic aerospace scenarios across supply chain, regulatory lookup, and bid/no-bid recommendation workflows. All data is synthetic and safe for public review.
+
+## Hiring Team Review
+
+- Public repo: [github.com/plaidpizazz/agenteval-harness](https://github.com/plaidpizazz/agenteval-harness)
+- Public dashboard: deploy with Vercel from this GitHub repo
+- Benchmark artifacts: [`public/results`](public/results)
+- Scenario dataset: [`scenarios/aerospace_synthetic_v0.jsonl`](scenarios/aerospace_synthetic_v0.jsonl)
+
+## What It Measures
+
+| Metric | Why it matters |
+| --- | --- |
+| Task completion | Confirms the agent satisfied the operational request, not just produced fluent text. |
+| Tool-call accuracy | Checks the selected tools, order, and allowed-tool policy across multi-step workflows. |
+| Loop termination | Detects runaway tool loops, repeated calls, and max-step failures. |
+| Grounding | Penalizes forbidden or unsupported claims and missing evidence citations. |
+| Governance | Rewards risk, confidence, evidence, escalation, and human-review markers. |
+
+## Architecture
+
+```text
+Next.js dashboard
+  reads public/results/*.json
+  renders leaderboard, scenario coverage, and failure-mode examples
+
+Python eval harness
+  loads synthetic aerospace scenarios
+  runs deterministic and optional Claude-backed agents
+  scores trajectories and exports dashboard artifacts
+
+GitHub Actions
+  validates Python tests
+  validates deterministic evals
+  builds the public dashboard
+
+Vercel
+  deploys public dashboard previews and production site from GitHub
+```
+
+## Quickstart
+
+```bash
+npm install
+python -m pip install -e ".[dev]"
+npm run eval:demo
+npm run build
+pytest
+```
+
+Run the dashboard locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Optional Claude Runs
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The deterministic baselines are used for public CI so the project does not require secrets or spend API budget. To add a real Claude-backed run, set:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+export ANTHROPIC_API_KEY="..."
+export ANTHROPIC_MODEL="claude-sonnet-4-5"
+```
 
-## Learn More
+The `ClaudeAgentRunner` adapter implements Anthropic tool-use loops against the same mock industrial tools. The deterministic runners remain the default for reproducibility.
 
-To learn more about Next.js, take a look at the following resources:
+## LangSmith And Hugging Face
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The repo is structured for LangSmith tracing/evaluation and Hugging Face Datasets packaging:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `LANGSMITH_PROJECT=agenteval-harness` can be used for traced runs when credentials are present.
+- Scenario records are JSONL and can be converted into a Hugging Face `Dataset` from `agenteval.datasets`.
+- CI avoids secret-backed external services by design.
 
-## Deploy on Vercel
+## Scenario Coverage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The synthetic benchmark includes:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 6 supply-chain scenarios: inventory shortage, approved alternates, expedite paths, traceability, dual release, export review.
+- 6 regulatory scenarios: controlled technical data, PMA repair evidence, supplier data handling, dual release, safety-critical approval, classification uncertainty.
+- 6 bid/no-bid scenarios: adjusted margin, high compliance risk, supply risk, thin-margin review, autonomous approval prevention.
+
+## Reliability Gate
+
+The reference agent must clear:
+
+- Composite reliability score >= 92%
+- Tool-call accuracy = 100%
+- Loop termination = 100%
+- Grounding >= 80%
+
+The flawed negative-control agent is intentionally expected to fail. This proves the benchmark can detect missing evidence, unsupported claims, repeated tool calls, and absent escalation.
