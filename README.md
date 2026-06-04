@@ -1,13 +1,38 @@
 # Industrial Agent Reliability Benchmark
 
-Industrial Agent Reliability Benchmark is an open-source evaluation harness for multi-step agentic AI systems in regulated industrial workflows. It measures behavior that single-turn LLM evals miss: tool-call accuracy, task completion, loop termination, grounding, hallucination risk, and governance controls.
+[![CI](https://github.com/plaidpizazz/industrial-agent-reliability-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/plaidpizazz/industrial-agent-reliability-benchmark/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://industrial-agent-reliability-benchmark.vercel.app)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](package.json)
+
+**A reproducible benchmark for multi-step agentic AI in regulated industrial workflows.** It measures the behavior that single-turn LLM evals miss: tool-call accuracy, task completion, loop termination, grounding, hallucination risk, and governance controls.
 
 The initial benchmark uses 18 synthetic aerospace scenarios across supply chain, regulatory lookup, and bid/no-bid recommendation workflows. All data is synthetic and safe for public review.
 
-## Hiring Team Review
+[![Industrial Agent Reliability Benchmark dashboard](docs/dashboard.png)](https://industrial-agent-reliability-benchmark.vercel.app)
+
+## Why It Matters
+
+In regulated industrial settings, an agent that selects the wrong tool, hallucinates a part number, skips a required regulatory check, or never escalates a high-risk decision isn't a bad demo — it's a safety, compliance, and cost event. Single-turn evals score a model's final answer; they say nothing about how a multi-step agent *behaved* to get there. This benchmark scores the trajectory, not just the text.
+
+## Results
+
+Two baseline agents run across all 18 scenarios. The `ReferenceAgent` is a well-behaved deterministic agent; the `FlawedAgent` is a negative control built to fail in realistic ways. The gap between them is the benchmark's discriminating power.
+
+| Agent | Composite | Task | Tool calls | Loop term. | Grounding | Governance | Hallucination |
+| --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **ReferenceAgent** | **100%** | 100% | 100% | 100% | 100% | 100% | 0% |
+| FlawedAgent | 33% | 7% | 74% | 67% | 5% | 3% | 95% |
+
+The `ReferenceAgent` clears the reliability gate; the `FlawedAgent` fails it by design — proving the benchmark detects missing evidence, unsupported claims, runaway tool loops, and absent escalation. Composite scores use weighted metrics (task 0.28, tool calls 0.24, loop termination 0.18, grounding 0.18, governance 0.12).
+
+Explore the full leaderboard, scenario coverage, and per-scenario failure analysis on the [live dashboard](https://industrial-agent-reliability-benchmark.vercel.app).
+
+## Overview & Links
 
 - Public repo: [github.com/plaidpizazz/industrial-agent-reliability-benchmark](https://github.com/plaidpizazz/industrial-agent-reliability-benchmark)
-- Public dashboard: [industrial-agent-reliability-benchmark.vercel.app](https://industrial-agent-reliability-benchmark.vercel.app)
+- Live dashboard: [industrial-agent-reliability-benchmark.vercel.app](https://industrial-agent-reliability-benchmark.vercel.app)
 - Benchmark artifacts: [`public/results`](public/results)
 - Scenario dataset: [`scenarios/aerospace_synthetic_v0.jsonl`](scenarios/aerospace_synthetic_v0.jsonl)
 
@@ -96,3 +121,18 @@ The reference agent must clear:
 - Grounding >= 80%
 
 The flawed negative-control agent is intentionally expected to fail. This proves the benchmark can detect missing evidence, unsupported claims, repeated tool calls, and absent escalation.
+
+## Roadmap
+
+- Expand from 18 to 50+ scenarios with additional industrial domains beyond aerospace.
+- Add a multi-model leaderboard comparing frontier agents under identical scenarios.
+- Publish LangSmith trace exports and a Hugging Face dataset card.
+- Add adversarial scenarios targeting prompt-injection and tool-misuse failure modes.
+
+## About
+
+Built by **Marcellus Spears** — 20+ years leading international aerospace business development and program management, now building applied generative-AI and agent systems. This project sits at that intersection: agentic-AI reliability evaluation grounded in real industrial and regulatory workflows. Connect on [LinkedIn](https://www.linkedin.com/in/marcellusspears/).
+
+## License
+
+Released under the [MIT License](LICENSE).
